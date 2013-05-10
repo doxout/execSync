@@ -5,17 +5,31 @@
 
 var ffi = require('ffi');
 
-var libc = ffi.Library(null, {
-  // FILE* popen(char* cmd, char* mode);
-  popen: ['pointer', ['string', 'string']],
-
-  // void pclose(FILE* fp);
-  pclose: ['int', [ 'pointer']],
-
-  // char* fgets(char* buff, int buff, in)
-  fgets: ['string', ['pointer', 'int','pointer']],
-});
-
+var libc;
+// win32 compatibility
+if (process.platform == 'win32') {
+  var wlibc = ffi.Library(null, {
+      // FILE* popen(char* cmd, char* mode);
+      _popen: ['pointer', ['string', 'string']],
+      // void pclose(FILE* fp);
+      _pclose: ['int', [ 'pointer']],
+      // char* fgets(char* buff, int buff, in)
+      fgets: ['string', ['pointer', 'int','pointer']],
+  });
+  libc = {};
+  libc.popen = wlibc._popen.bind(wlibc);
+  libc.pclose = wlibc._pclose.bind(wlibc);
+  libc.fgets = wlibc.fgets.bind(wlibc);
+} else {
+  libc = ffi.Library(null, {
+    // FILE* popen(char* cmd, char* mode);
+    popen: ['pointer', ['string', 'string']],
+    // void pclose(FILE* fp);
+    pclose: ['int', [ 'pointer']],
+    // char* fgets(char* buff, int buff, in)
+    fgets: ['string', ['pointer', 'int','pointer']],
+  });
+}
 
 /**
  * Executes shell `cmd` returning result code.
