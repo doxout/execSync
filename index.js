@@ -8,7 +8,7 @@ var ffi = require('ffi');
 var libc;
 // win32 compatibility
 if (process.platform == 'win32') {
-  var wlibc = ffi.Library(null, {
+  var wlibc = ffi.Library('msvcrt', {
       // FILE* popen(char* cmd, char* mode);
       _popen: ['pointer', ['string', 'string']],
       // void pclose(FILE* fp);

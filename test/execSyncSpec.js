@@ -6,6 +6,26 @@
 var assert = require('chai').assert;
 var execSync = require('..');
 
+if (process.platform == 'win32') {
+
+describe('execSync', function() {
+
+  it('should get stdout', function() {
+    var stdout = execSync.stdout('echo capture_stderr');
+    assert.include(stdout, 'capture_stderr');
+  });
+
+  it('should get code', function() {
+    var code = execSync.code('exit');
+    assert.equal(code, 0);
+  });
+
+});
+
+
+}
+
+else {
 
 describe('execSync', function() {
 
@@ -30,3 +50,6 @@ describe('execSync', function() {
   });
 
 });
+
+}
+
