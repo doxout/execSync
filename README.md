@@ -2,7 +2,7 @@
 
 Executes shell commands synchronously.
 
-**Does not work on Windows**
+**Works on Windows**
 
 ## Motivation
 
