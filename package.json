@@ -1,8 +1,8 @@
 {
-  "author": "Mario Gutierrez <mario@mgutz.com>",
-  "name": "execSync",
-  "description": "Synchronous exec when you NEED it.",
-  "version": "0.0.4",
+  "author": "Gorgi Kosev <gorgi.kosev@gmail.com>",
+  "name": "execsync-ng",
+  "description": "Synchronous exec when you NEED it. Based on execSync with added Windows support.",
+  "version": "0.0.5",
   "license": "MIT",
   "dependencies": {
     "ffi": "latest"
@@ -17,5 +17,22 @@
   },
   "scripts": {
     "test": "mocha test"
+  },
+  "readmeFilename": "README.md",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/doxout/execSync.git"
+  },
+  "keywords": [
+    "sync",
+    "exec",
+    "windows"
+  ],
+  "bugs": {
+    "url": "https://github.com/doxout/execSync/issues"
   }
 }
