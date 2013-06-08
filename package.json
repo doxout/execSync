@@ -2,7 +2,7 @@
   "author": "Gorgi Kosev <gorgi.kosev@gmail.com>",
   "name": "execsync-ng",
   "description": "Synchronous exec when you NEED it. Based on execSync with added Windows support.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
   "dependencies": {
     "ffi": "latest"

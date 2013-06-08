@@ -48,10 +48,13 @@ function code(cmd) {
  * @example
  *  var results = execSync.exec('echo my_bad 1>&2; echo $USER');
  *
+ * @param {String} cmd - the command to execute
+ * @param {Boolean} opt.silent - don't output to stdout
  * @returns Returns { code: Number, stdout: String}. If there is an
  * error executing cmd, an Error is thrown.
  */
-function exec(cmd) {
+function exec(cmd, opt) {
+  opt = opt || {silent: true}
   var buffer = new Buffer(32);
   var result = '';
   var fp = libc.popen('(' + cmd + ') 2>&1', 'r');
@@ -59,8 +62,10 @@ function exec(cmd) {
 
   if (!fp) throw new Error('execSync error: '+cmd);
 
+  var str;
   while(libc.fgets(buffer, 32, fp)) {
-    result += buffer.readCString();
+    result += (str = buffer.readCString());
+    if (!opt.silent) process.stdout.write(str);
   }
   code = libc.pclose(fp) >> 8;
 
